@@ -12,6 +12,7 @@
 #include <stdexcept>
 #include <functional>
 #include <sstream>
+#include <Cidade.h>
 
 class Game {
     int instantes;
@@ -31,6 +32,7 @@ class Game {
     char **mapaReal;
 
     std::string logs;
+    std::vector<Cidade> cidades;
 
 
 public:
