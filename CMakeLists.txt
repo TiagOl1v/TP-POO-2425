@@ -16,4 +16,6 @@ add_executable(TP_POO2425
         Interface.h
         ListaComandos.cpp
         ListaComandos.h
+        Caravana.cpp
+        Caravana.h
         main.cpp)
