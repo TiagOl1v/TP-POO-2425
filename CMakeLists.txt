@@ -18,4 +18,10 @@ add_executable(TP_POO2425
         ListaComandos.h
         Caravana.cpp
         Caravana.h
-        main.cpp)
+        main.cpp
+        CarvComercio.cpp
+        CarvComercio.h
+        CarvBarbaros.cpp
+        CarvBarbaros.h
+        CarvMilitar.cpp
+        CarvMilitar.h)

@@ -9,6 +9,9 @@
 class Caravana {
 
     static int id;
+    int LitrosAtual,MaxLitros;
+    int tripulantes;
+
     
 
 };
