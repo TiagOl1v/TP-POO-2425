@@ -6,19 +6,20 @@
 
 Buffer::Buffer(int a, int l):altura(a), largura(l) {
 
+    std::cout << altura;
+
     mapa = new char*[altura];
     for (int i = 0; i < altura; ++i)
         mapa[i] = new char[largura+1];
-
 }
 
-void Buffer::print() const {
-    for (int i = 0; i < altura; ++i) {
-        for (int j = 0; j < largura; ++j) {
-            std::cout << mapa[i][j];
-        }
-        std::cout << '\n';
-    }
+char* Buffer::operator[](int linha) {
+    return mapa[linha];
+}
+
+const char* Buffer::operator[](int linha) const {
+
+    return mapa[linha];
 }
 
 Buffer::~Buffer() {

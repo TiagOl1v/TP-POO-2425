@@ -13,7 +13,7 @@ class Interface {
     Game *jogo;
     Buffer buffer;
     ListaComandos comandos;
-
+    void AtualizaMapa();
 public:
 
     Interface(Game & jogo);

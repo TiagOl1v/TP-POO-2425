@@ -16,8 +16,11 @@ class Buffer {
 public:
     Buffer(int a, int l);
     ~Buffer();
-    void print()const;
+
+    char* operator[](int linha);
+    const char* operator[](int linha) const;
 };
+
 
 
 #endif //TP_POO2425_BUFFER_H

@@ -24,18 +24,28 @@ Game::Game(std::string ficheiro):instantes(0){
         throw std::runtime_error("Erro ao abrir o txt dos comandos: " + ficheiro);
     }
 
+    // Ler linhas e colunas
     std::string linha;
-    file >> linha >> linhas;
-    file >> linha >> colunas;
-    file.ignore();
+    std::getline(file, linha);
+    linhas = std::stoi(linha.substr(linha.find(" ") + 1));
 
+    std::getline(file, linha);
+    colunas = std::stoi(linha.substr(linha.find(" ") + 1));
+
+    // Inicializar o mapa
     mapaReal = new char*[linhas];
     for (int i = 0; i < linhas; ++i)
-        mapaReal[i] = new char[colunas+1];
+        mapaReal[i] = new char[colunas + 1]; // +1 para '\0'
 
-    for (int i = 0; i < linhas; ++i)
-        file.getline(mapaReal[i], colunas + 1);
+    // Ler o mapa
+    for (int i = 0; i < linhas; ++i) {
+        std::getline(file, linha);
 
+        for (int j = 0; j < colunas; ++j) {
+            mapaReal[i][j] = linha[j];
+        }
+        mapaReal[i][colunas] = '\0'; // Garantir que está null-terminated
+    }
 
     while (std::getline(file, linha)) {
         for (auto& param : parametros) {
@@ -48,9 +58,24 @@ Game::Game(std::string ficheiro):instantes(0){
 
         }
     }
-
     file.close();
 
+}
+
+char* Game::operator[](int row) {
+    return mapaReal[row];
+}
+
+const char* Game::operator[](int row) const {
+    return mapaReal[row];
+}
+
+Game::~Game() {
+    // Libera a memória alocada
+    for (int i = 0; i < linhas; ++i) {
+        delete[] mapaReal[i];
+    }
+    delete[] mapaReal;
 }
 
 int Game::getLinhas() const {
@@ -61,4 +86,13 @@ int Game::getColunas() const {
     return colunas;
 }
 
+void Game::print() const {
 
+    for (int i = 0; i < linhas; ++i) {
+        for (int j = 0; j < colunas; ++j) {
+            std::cout << mapaReal[i][j] << ' ';
+        }
+        std::cout << '\n';
+    }
+
+}

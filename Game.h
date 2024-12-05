@@ -40,6 +40,13 @@ public:
     Game(std::string ficheiro);
     int getLinhas() const;
     int getColunas() const;
+    void print() const;
+
+    char* operator[](int row);
+    const char* operator[](int row) const;
+
+    ~Game();
+
 
 };
 
