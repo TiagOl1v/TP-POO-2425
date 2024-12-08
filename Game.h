@@ -1,6 +1,3 @@
-//
-// Created by Utilizador on 11/16/2024.
-//
 
 #ifndef TP_POO2425_GAME_H
 #define TP_POO2425_GAME_H
@@ -15,10 +12,14 @@
 #include <Cidade.h>
 
 class Game {
-    int instantes;
 
-    int moedasInic; //numero inicial de moedas
+    int instantes;
+    int maxCaravanas;
+    int carvAtuais;
     int nCitys; // numero de cidades
+
+    //----------------- variaveis txt -----------------
+    int moedasInic; //numero inicial de moedas
     int novosItens; // intantes a que sao colucados itens
     int MaxItens; // max de itens
     int PremaneciaItens; //maximo que o item vai permanecer
@@ -33,11 +34,12 @@ class Game {
 
     std::string logs;
     std::vector<Cidade> cidades;
+    std::vector<std::unique_ptr<Caravana>> CaravanasUser;
 
 
 public:
 
-    Game(std::string ficheiro);
+    Game(std::string & ficheiro);
     int getLinhas() const;
     int getColunas() const;
     void print() const;

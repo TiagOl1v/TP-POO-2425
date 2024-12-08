@@ -1,6 +1,3 @@
-//
-// Created by Utilizador on 11/17/2024.
-//
 
 #include "Buffer.h"
 

@@ -1,6 +1,3 @@
-//
-// Created by Utilizador on 11/22/2024.
-//
 
 #ifndef TP_POO2425_LISTACOMANDOS_H
 #define TP_POO2425_LISTACOMANDOS_H

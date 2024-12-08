@@ -1,6 +1,3 @@
-//
-// Created by Utilizador on 11/22/2024.
-//
 
 #include "Interface.h"
 

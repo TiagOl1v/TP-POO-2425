@@ -1,10 +1,23 @@
-//
-// Created by Utilizador on 11/16/2024.
-//
 
 #include "Game.h"
 
-Game::Game(std::string ficheiro):instantes(0){
+bool verificaLetra(char letra){
+
+    char letras_minusculas[] = "abcdefghijklmnopqrstuvwxyz";
+    bool flag = false;
+
+    for (int i = 0; letras_minusculas[i] != '\0'; i++) {
+        if (letra == letras_minusculas[i]) {
+            flag = true;
+            break;
+        }
+    }
+
+    return flag;
+}
+
+
+Game::Game(std::string  & ficheiro):instantes(0),maxCaravanas(9){
 
     std::map<std::string, std::reference_wrapper<int>> parametros = {
             {"moedas", moedasInic},
@@ -43,6 +56,10 @@ Game::Game(std::string ficheiro):instantes(0){
 
         for (int j = 0; j < colunas; ++j) {
             mapaReal[i][j] = linha[j];
+            if(verificaLetra(mapaReal[i][j])){
+                cidades.push_back(Cidade(mapaReal[i][j],i,j));
+            }
+
         }
         mapaReal[i][colunas] = '\0'; // Garantir que está null-terminated
     }
@@ -59,6 +76,8 @@ Game::Game(std::string ficheiro):instantes(0){
         }
     }
     file.close();
+
+
 
 }
 
