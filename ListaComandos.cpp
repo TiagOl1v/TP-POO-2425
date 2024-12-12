@@ -34,6 +34,7 @@ void CompraCaravana(Game& jogo, const std::string& arg) {
             std::cout << "Argumentos invalidos: comprac <Nome cidade> <Tipo> " << std::endl;
         } else {
             std::cout << "Primeiro char: " << firstArg[0] << "\nSegundo char: " << secondArg[0] << std::endl;
+
         }
     }
 }
@@ -41,7 +42,7 @@ void CompraCaravana(Game& jogo, const std::string& arg) {
 void ListaPrecos(Game& jogo, const std::string& arg) {
 
         if (arg.empty())
-            std::cout << "esta bem" << std::endl;
+          jogo.MostraCarv();
 
         else
             std::cout << "Argumentos invalidos: precos" << std::endl;

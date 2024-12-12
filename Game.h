@@ -44,8 +44,14 @@ public:
     int getColunas() const;
     void print() const;
 
+    void novoTurno();
+
+
+    void compraCaravana(char tipo, char cidade);
     char* operator[](int row);
     const char* operator[](int row) const;
+    void MostraCarv()const;
+
 
     ~Game();
 

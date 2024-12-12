@@ -76,9 +76,6 @@ Game::Game(std::string  & ficheiro):instantes(0),maxCaravanas(9){
         }
     }
     file.close();
-
-
-
 }
 
 char* Game::operator[](int row) {
@@ -104,6 +101,30 @@ int Game::getLinhas() const {
 int Game::getColunas() const {
     return colunas;
 }
+
+void Game::novoTurno() {
+
+}
+
+void Game::compraCaravana(char tipo, char cidade) {
+
+    for (Cidade& city : cidades) { // Usar referência para modificar o objeto original
+        if (city.getCidade() == cidade) {
+            if (tipo == 'C' || tipo == 'M' || tipo == 'S') {
+                city.compraCaravana(CaravanasUser, tipo);
+            }
+        }
+    }
+}
+
+void Game::MostraCarv()const{
+
+    for( const auto & caravana : CaravanasUser ){
+        std::cout << caravana->getId();
+    }
+
+}
+
 
 void Game::print() const {
 

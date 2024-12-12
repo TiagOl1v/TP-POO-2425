@@ -21,9 +21,10 @@ void Interface::start() {
 
     do {
 
-    std::getline(std::cin, comand);  // Lê a linha inteira até o enter
-    comandos.ExecutaComando(*jogo,comand);
-    AtualizaMapa();
+        jogo->novoTurno();
+        std::getline(std::cin, comand);  // Lê a linha inteira até o enter
+        comandos.ExecutaComando(*jogo,comand);
+        AtualizaMapa();
 
         for (int i = 0; i < jogo->getLinhas(); ++i) {
             for (int j = 0; j <jogo->getColunas(); ++j) {

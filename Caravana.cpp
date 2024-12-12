@@ -1,5 +1,29 @@
 
 #include "Caravana.h"
+#include <ctime>
+
+int Caravana::geraID(){
+
+    std::srand(static_cast<unsigned>(std::time(nullptr)));
+
+    int newID;
+    bool flag;
+    do {
+
+        newID = std::rand() % 9999;
+
+        // ID unico?
+        flag= std::find(ids.begin(), ids.end(), newID) == ids.end();
+
+    } while (!flag);
+
+    // Adiciona o ID ao vetor
+    ids.push_back(newID);
+
+    return newID;
+
+
+}
 
 Caravana::Caravana(int litrosAtual, int maxLitros, int tripulantes,
                    int maxTripulantes, bool estaNaCidade, int posLinha,
@@ -8,7 +32,27 @@ Caravana::Caravana(int litrosAtual, int maxLitros, int tripulantes,
                                                               estaNaCidade(estaNaCidade), posLinha(posLinha),
                                                               posColuna(posColuna), maxMov(maxMov),
                                                               movAtual(movAtual), MaxCarga(MaxCarga),
-                                                              cargaAtual(cargaAtual) {
-
+                                                              cargaAtual(cargaAtual),id(geraID()){
 
 }
+
+
+bool Caravana::move(int numCasas){
+
+    return true;
+}
+
+Caravana::Caravana() {
+}
+
+int Caravana::getId() const {
+    return id;
+}
+
+int Caravana::getPosLinha() const {
+    return posLinha;
+}
+
+int Caravana::getPosColuna() const {
+    return posColuna;
+};

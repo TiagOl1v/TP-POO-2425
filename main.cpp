@@ -24,9 +24,5 @@ int main() {
          std::cerr << "Exceção: " << e.what() << std::endl;
     }
 
-
-
-
-
     return 0;
 }
