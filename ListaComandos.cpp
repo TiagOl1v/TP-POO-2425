@@ -118,6 +118,16 @@ void moveCaravana(Game& jogo, const std::string& arg) {
     }
 }
 
+void mostraAllMyCarav(Game& jogo, const std::string& arg) {
+
+    if (arg == "minhasc"){
+        jogo.MostraCarv();
+    }
+    else
+        std::cout << "Argumentos incorretos";
+
+}
+
 ListaComandos::ListaComandos(){
 
     comandos = {
@@ -131,6 +141,7 @@ ListaComandos::ListaComandos(){
             {"compra", CompraMercadoria},
             {"vende", vendeMercadoria},
             {"move", moveCaravana},
+            {"minhasc", mostraAllMyCarav},
 
     };
 

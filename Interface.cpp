@@ -10,8 +10,9 @@ void Interface::AtualizaMapa(){
             buffer[i][j]= (*jogo)[i][j];
         }
     }
+    buffer.setInfo(jogo->getLogs());
 
-        }
+}
 
 void Interface::start() {
 
@@ -24,12 +25,7 @@ void Interface::start() {
         comandos.ExecutaComando(*jogo,comand);
         AtualizaMapa();
 
-        for (int i = 0; i < jogo->getLinhas(); ++i) {
-            for (int j = 0; j <jogo->getColunas(); ++j) {
-                std::cout << buffer[i][j];
-            }
-            std::cout << std::endl;
-        }
+        std::cout << buffer;
 
     } while (comand != "sair");
 }

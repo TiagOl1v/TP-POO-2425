@@ -108,7 +108,8 @@ int Game::getColunas() const {
 }
 
 void Game::novoTurno() {
-
+    logs.str("");       // Remove o conteúdo do buffer
+    logs.clear();
 }
 
 void Game::compraCaravana(char tipo, char cidade) {
@@ -116,7 +117,7 @@ void Game::compraCaravana(char tipo, char cidade) {
     bool flagPodeComprar = false;
 
     for ( number = 0; number < 10; ++number) {
-        if(maxCarv[number] == false){
+        if(!maxCarv[number]){
             flagPodeComprar = true;
             break;
         }
@@ -125,7 +126,14 @@ void Game::compraCaravana(char tipo, char cidade) {
         for (Cidade& city : cidades) { // Usar referência para modificar o objeto original
             if (city.getCidade() == cidade) {
                 if (tipo == 'C' || tipo == 'M' || tipo == 'S') {
-                    city.compraCaravana(CaravanasUser, tipo);
+                    if(city.compraCaravana(CaravanasUser, tipo,number)){
+                        logs << "Comprou uma Caravana na cidade:" << cidade << " do tipo: " << tipo << std::endl;
+                        maxCarv[number]= true;
+                    }
+                    else{
+                        logs << "[FALHA]A cidade: " << cidade << " nao tem uma Caravana do tipo: " << tipo << std::endl;
+                    }
+
                     break;
                 }
             }
@@ -133,22 +141,18 @@ void Game::compraCaravana(char tipo, char cidade) {
     }
 }
 
-void Game::MostraCarv()const{
-
+void Game::MostraCarv(){
+    logs << "Possui as seguintes Caravanas: " << std::endl;
     for( const auto & caravana : CaravanasUser ){
-        std::cout << "CARAVANA: " << caravana->getId();
+        logs << "Caravana -> " << caravana->getIdNoMapa() << std::endl;
     }
 
 }
 
-
-void Game::print() const {
-
-    for (int i = 0; i < linhas; ++i) {
-        for (int j = 0; j < colunas; ++j) {
-            std::cout << mapaReal[i][j] << ' ';
-        }
-        std::cout << '\n';
-    }
-
+const std::ostringstream &Game::getLogs() const {
+    return logs;
 }
+
+
+
+

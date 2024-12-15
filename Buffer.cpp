@@ -23,3 +23,34 @@ Buffer::~Buffer() {
     }
     delete[] mapa;
 }
+
+int Buffer::getLargura() const {
+    return largura;
+}
+
+int Buffer::getAltura() const {
+    return altura;
+}
+
+void Buffer::setInfo(const std::ostringstream &info) {
+    Buffer::info = info.str();
+}
+
+const std::string &Buffer::getInfo() const {
+    return info;
+}
+
+
+std::ostream &operator<<(std::ostream &os, const Buffer &buf){
+
+    for (int i = 0; i < buf.getAltura(); ++i) {
+        for (int j = 0; j < buf.getLargura(); ++j) {
+            os << buf[i][j];
+        }
+        os << std::endl;
+    }
+
+    os << "OUTPUT COMANDO\n" << buf.getInfo();
+
+    return os;
+}

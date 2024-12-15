@@ -31,7 +31,7 @@ class Game {
     int linhas,colunas;
     char **mapaReal;
 
-    std::string logs;
+    std::ostringstream logs;
     std::vector<Cidade> cidades;
     std::vector<std::unique_ptr<Caravana>> CaravanasUser;
     std::map<int, bool> maxCarv;
@@ -50,8 +50,9 @@ public:
     void compraCaravana(char tipo, char cidade);
     char* operator[](int row);
     const char* operator[](int row) const;
-    void MostraCarv()const;
+    void MostraCarv();
 
+    const std::ostringstream &getLogs() const;
 
     ~Game();
 

@@ -18,7 +18,7 @@ public:
     Cidade(char cidade, int posLinha, int posColuna);
 
     char getCidade() const;
-    std::string compraCaravana( std::vector<std::unique_ptr<Caravana>> & GameCarv, char tipo);
+    bool compraCaravana( std::vector<std::unique_ptr<Caravana>> & GameCarv, char tipo, int numberMapa);
 };
 
 

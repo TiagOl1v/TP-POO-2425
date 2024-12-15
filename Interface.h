@@ -16,8 +16,8 @@ public:
 
     Interface(Game & jogo);
     void start();
-
 };
+
 
 
 #endif //TP_POO2425_INTERFACE_H

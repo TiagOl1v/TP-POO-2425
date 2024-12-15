@@ -9,6 +9,7 @@ class Caravana {
 
 
     int id;
+    int idNoMapa;
 
     int LitrosAtual,MaxLitros;
     int tripulantes, MaxTripulantes;
@@ -18,6 +19,7 @@ class Caravana {
     int MaxCarga, cargaAtual;
 
     int geraID();
+
 public:
 
     Caravana(int litrosAtual, int maxLitros, int tripulantes, int maxTripulantes, bool estaNaCidade, int posLinha,
@@ -28,10 +30,10 @@ public:
    virtual int getId() const;
 
     int getPosLinha() const;
-
     int getPosColuna() const;
 
-
+    void setIdNoMapa(int idNoMapa);
+    virtual int getIdNoMapa() const;
 };
 
 

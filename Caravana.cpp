@@ -1,6 +1,7 @@
 
 #include "Caravana.h"
 #include <ctime>
+#include <algorithm>
 
 
 int Caravana::geraID(){
@@ -55,4 +56,12 @@ int Caravana::getPosLinha() const {
 
 int Caravana::getPosColuna() const {
     return posColuna;
+}
+
+void Caravana::setIdNoMapa(int idNoMapa) {
+    Caravana::idNoMapa = idNoMapa;
+}
+
+int Caravana::getIdNoMapa() const {
+    return idNoMapa;
 };
