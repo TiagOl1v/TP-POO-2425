@@ -31,8 +31,10 @@ void CompraCaravana(Game& jogo, const std::string& arg) {
 
         // Verifica se cada argumento tem exatamente um char
         if (firstArg.size() != 1 || secondArg.size() != 1) {
+
             std::cout << "Argumentos invalidos: comprac <Nome cidade> <Tipo> " << std::endl;
         } else {
+            jogo.compraCaravana(firstArg[0],secondArg[0]);
             std::cout << "Primeiro char: " << firstArg[0] << "\nSegundo char: " << secondArg[0] << std::endl;
 
         }
@@ -40,7 +42,7 @@ void CompraCaravana(Game& jogo, const std::string& arg) {
 }
 
 void ListaPrecos(Game& jogo, const std::string& arg) {
-
+    jogo.MostraCarv();
         if (arg.empty())
           jogo.MostraCarv();
 

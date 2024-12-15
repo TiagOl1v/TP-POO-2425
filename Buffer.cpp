@@ -3,8 +3,6 @@
 
 Buffer::Buffer(int a, int l):altura(a), largura(l) {
 
-    std::cout << altura;
-
     mapa = new char*[altura];
     for (int i = 0; i < altura; ++i)
         mapa[i] = new char[largura+1];

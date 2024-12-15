@@ -14,7 +14,6 @@
 class Game {
 
     int instantes;
-    int maxCaravanas;
     int carvAtuais;
     int nCitys; // numero de cidades
 
@@ -35,6 +34,7 @@ class Game {
     std::string logs;
     std::vector<Cidade> cidades;
     std::vector<std::unique_ptr<Caravana>> CaravanasUser;
+    std::map<int, bool> maxCarv;
 
 
 public:

@@ -7,7 +7,7 @@
 
 class Caravana {
 
-    static std::vector<int> ids;
+
     int id;
 
     int LitrosAtual,MaxLitros;
@@ -23,7 +23,7 @@ public:
     Caravana(int litrosAtual, int maxLitros, int tripulantes, int maxTripulantes, bool estaNaCidade, int posLinha,
              int posColuna, int maxMov, int movAtual, int MaxCarga, int cargaAtual);
 
-    Caravana();
+
    virtual bool move(int numCasas);
    virtual int getId() const;
 

@@ -17,7 +17,7 @@ bool verificaLetra(char letra){
 }
 
 
-Game::Game(std::string  & ficheiro):instantes(0),maxCaravanas(9){
+Game::Game(std::string  & ficheiro):instantes(0){
 
     std::map<std::string, std::reference_wrapper<int>> parametros = {
             {"moedas", moedasInic},
@@ -76,6 +76,11 @@ Game::Game(std::string  & ficheiro):instantes(0),maxCaravanas(9){
         }
     }
     file.close();
+
+    for (int i = 0; i < 10; ++i) {
+        maxCarv[i] = false;
+    }
+
 }
 
 char* Game::operator[](int row) {
@@ -107,11 +112,22 @@ void Game::novoTurno() {
 }
 
 void Game::compraCaravana(char tipo, char cidade) {
+    int number;
+    bool flagPodeComprar = false;
 
-    for (Cidade& city : cidades) { // Usar referência para modificar o objeto original
-        if (city.getCidade() == cidade) {
-            if (tipo == 'C' || tipo == 'M' || tipo == 'S') {
-                city.compraCaravana(CaravanasUser, tipo);
+    for ( number = 0; number < 10; ++number) {
+        if(maxCarv[number] == false){
+            flagPodeComprar = true;
+            break;
+        }
+    }
+    if (flagPodeComprar){
+        for (Cidade& city : cidades) { // Usar referência para modificar o objeto original
+            if (city.getCidade() == cidade) {
+                if (tipo == 'C' || tipo == 'M' || tipo == 'S') {
+                    city.compraCaravana(CaravanasUser, tipo);
+                    break;
+                }
             }
         }
     }
@@ -120,7 +136,7 @@ void Game::compraCaravana(char tipo, char cidade) {
 void Game::MostraCarv()const{
 
     for( const auto & caravana : CaravanasUser ){
-        std::cout << caravana->getId();
+        std::cout << "CARAVANA: " << caravana->getId();
     }
 
 }
