@@ -128,6 +128,17 @@ void mostraAllMyCarav(Game& jogo, const std::string& arg) {
 
 }
 
+void AltMoedas(Game& jogo, const std::string& arg) {
+
+    if((isNumber(arg))){
+        int num = stoi(arg);
+        jogo.setMoedas(num);
+    }
+    else
+        std::cout << "Argumentos incorretos";
+
+}
+
 ListaComandos::ListaComandos(){
 
     comandos = {
@@ -141,6 +152,7 @@ ListaComandos::ListaComandos(){
             {"compra", CompraMercadoria},
             {"vende", vendeMercadoria},
             {"move", moveCaravana},
+            {"moedas", AltMoedas},
             {"minhasc", mostraAllMyCarav},
 
     };
@@ -164,6 +176,4 @@ bool ListaComandos::ExecutaComando(Game &J, std::string comando) {
         return true;
     } else
         return false;
-
-
 }

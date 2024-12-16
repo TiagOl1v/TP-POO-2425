@@ -18,7 +18,7 @@ class Game {
     int nCitys; // numero de cidades
 
     //----------------- variaveis txt -----------------
-    int moedasInic; //numero inicial de moedas
+    int moedas; //numero inicial de moedas
     int novosItens; // intantes a que sao colucados itens
     int MaxItens; // max de itens
     int PremaneciaItens; //maximo que o item vai permanecer
@@ -42,7 +42,8 @@ public:
     Game(std::string & ficheiro);
     int getLinhas() const;
     int getColunas() const;
-    void print() const;
+
+    void setMoedas(int moedas);
 
     void novoTurno();
 
@@ -51,7 +52,7 @@ public:
     char* operator[](int row);
     const char* operator[](int row) const;
     void MostraCarv();
-
+    void MoveCaravana(int id, char direcao);
     const std::ostringstream &getLogs() const;
 
     ~Game();

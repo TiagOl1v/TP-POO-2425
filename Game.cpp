@@ -20,7 +20,7 @@ bool verificaLetra(char letra){
 Game::Game(std::string  & ficheiro):instantes(0){
 
     std::map<std::string, std::reference_wrapper<int>> parametros = {
-            {"moedas", moedasInic},
+            {"moedas", moedas},
             {"instantes_entre_novos_itens", novosItens},
             {"duração_item", PremaneciaItens},
             {"max_itens", MaxItens},
@@ -108,13 +108,19 @@ int Game::getColunas() const {
 }
 
 void Game::novoTurno() {
-    logs.str("");       // Remove o conteúdo do buffer
+    logs.str("");       //limpar logs
     logs.clear();
+
 }
 
 void Game::compraCaravana(char tipo, char cidade) {
     int number;
     bool flagPodeComprar = false;
+
+    if(moedas < CompraCaravana){
+        logs << "[FALHA]Nao tem dinheiro suficiente " << std::endl;
+        return;
+    }
 
     for ( number = 0; number < 10; ++number) {
         if(!maxCarv[number]){
@@ -153,6 +159,18 @@ const std::ostringstream &Game::getLogs() const {
     return logs;
 }
 
+void Game::setMoedas(int moedas) {
+    Game::moedas = moedas;
+}
 
 
 
+void Game::MoveCaravana(int id, char direcao){
+
+    for( auto & caravana : CaravanasUser ){
+        if( caravana->getIdNoMapa()){
+            
+        }
+    }
+
+}
