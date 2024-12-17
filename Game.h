@@ -16,6 +16,7 @@ class Game {
     int instantes;
     int carvAtuais;
     int nCitys; // numero de cidades
+    bool HouveAlt; //detectar se o mapa mudou
 
     //----------------- variaveis txt -----------------
     int moedas; //numero inicial de moedas
@@ -54,6 +55,9 @@ public:
     void MostraCarv();
     void MoveCaravana(int id, char direcao);
     const std::ostringstream &getLogs() const;
+
+    void setHouveAlt(bool houveAlt);
+    bool isHouveAlt() const;
 
     ~Game();
 

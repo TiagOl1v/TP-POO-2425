@@ -7,6 +7,11 @@
 
 class CarvComercio : public Caravana{
 
+    int LitrosAtual,MaxLitros;
+    int MaxCarga, cargaAtual;
+    int maxTripulantes;
+
+
 public:
     CarvComercio(int l, int c);
     bool move(int numCasas) override;

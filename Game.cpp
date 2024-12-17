@@ -108,8 +108,18 @@ int Game::getColunas() const {
 }
 
 void Game::novoTurno() {
+
+    if(!HouveAlt){
     logs.str("");       //limpar logs
     logs.clear();
+    HouveAlt = true;
+    }
+
+    if(instantes % InstSpawnBarb == 0){
+
+    }//criar uma cav barbaro
+
+
 
 }
 
@@ -173,4 +183,12 @@ void Game::MoveCaravana(int id, char direcao){
         }
     }
 
+}
+
+void Game::setHouveAlt(bool houveAlt) {
+    HouveAlt = houveAlt;
+}
+
+bool Game::isHouveAlt() const {
+    return HouveAlt;
 }

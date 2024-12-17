@@ -11,19 +11,18 @@ class Caravana {
     int id;
     int idNoMapa;
 
-    int LitrosAtual,MaxLitros;
-    int tripulantes, MaxTripulantes;
+    int tripulantes;
     bool estaNaCidade;
     int posLinha, posColuna;
     int maxMov, movAtual;
-    int MaxCarga, cargaAtual;
+
 
     int geraID();
 
 public:
 
-    Caravana(int litrosAtual, int maxLitros, int tripulantes, int maxTripulantes, bool estaNaCidade, int posLinha,
-             int posColuna, int maxMov, int movAtual, int MaxCarga, int cargaAtual);
+    Caravana(int tripulantes, bool estaNaCidade, int posLinha,
+             int posColuna, int maxMov, int movAtual);
 
 
    virtual bool move(int numCasas);

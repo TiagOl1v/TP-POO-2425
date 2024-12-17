@@ -6,6 +6,11 @@
 
 class CarvBarbaros : public Caravana{
 
+
+    public:
+    CarvBarbaros(bool Cidade, int Linha, int Coluna);
+
+
 };
 
 

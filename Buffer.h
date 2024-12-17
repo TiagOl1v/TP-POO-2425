@@ -26,6 +26,7 @@ public:
 
     const std::string &getInfo() const;
 
+
 };
 
 std::ostream &operator<<(std::ostream &os, const Buffer &buf);

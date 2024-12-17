@@ -10,8 +10,6 @@ void Interface::AtualizaMapa(){
             buffer[i][j]= (*jogo)[i][j];
         }
     }
-    buffer.setInfo(jogo->getLogs());
-
 }
 
 void Interface::start() {
@@ -19,13 +17,15 @@ void Interface::start() {
     std::string comand;
 
     do {
-
         jogo->novoTurno();
         std::getline(std::cin, comand);  // Lê a linha inteira até o enter
-        comandos.ExecutaComando(*jogo,comand);
-        AtualizaMapa();
-
-        std::cout << buffer;
+        buffer.setInfo(jogo->getLogs());
+        if(comandos.ExecutaComando(*jogo,comand)){
+            AtualizaMapa();
+            std::cout << buffer;
+        }
+        else
+        std::cout << buffer.getInfo();
 
     } while (comand != "sair");
 }

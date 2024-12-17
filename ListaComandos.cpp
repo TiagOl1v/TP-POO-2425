@@ -15,6 +15,11 @@ void avancaInst(Game& jogo, const std::string& arg) {
     if((isNumber(arg))){
         int num = stoi(arg);
         std::cout << "Vai avancar " << num;
+        for (int i = 0; i < num; ++i) {
+            jogo.novoTurno();
+        }
+
+
     }
     else
         std::cout << "Argumentos incorretos";
@@ -161,6 +166,7 @@ ListaComandos::ListaComandos(){
 
 bool ListaComandos::ExecutaComando(Game &J, std::string comando) {
 
+    J.setHouveAlt(false);
     std::string com;
     std::string argumentos;
     size_t pos = comando.find(' ');
@@ -173,7 +179,8 @@ bool ListaComandos::ExecutaComando(Game &J, std::string comando) {
     if (it != comandos.end()) {
         std::stringstream ss(argumentos);
         it->second(J, argumentos);
-        return true;
-    } else
-        return false;
+    }
+
+    return J.isHouveAlt();
+
 }
