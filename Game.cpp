@@ -15,7 +15,27 @@ bool verificaLetra(char letra){
 
     return flag;
 }
+void Game::Combate(){
 
+
+
+}
+
+void Game::VerfCombate(){
+
+    for (CarvBarbaros & Bab : BarbarosC ){
+        for(auto & carvUser : CaravanasUser){
+            if( (Bab.getPosColuna() == (carvUser->getPosColuna() + 1 )) || Bab.getPosColuna() == (carvUser->getPosColuna() - 1 ) ){
+                if ((Bab.getPosLinha() == (carvUser->getPosLinha() + 1 )) || Bab.getPosLinha() == (carvUser->getPosLinha() - 1 )){
+
+                }
+            } else if ( ( (Bab.getPosLinha() == (carvUser->getPosLinha() + 1 )) || Bab.getPosLinha() == (carvUser->getPosLinha() - 1 ) )  && (Bab.getPosColuna() == (carvUser->getPosColuna()) )){
+
+            }
+        }
+    }
+
+}
 
 Game::Game(std::string  & ficheiro):instantes(0){
 
@@ -30,7 +50,7 @@ Game::Game(std::string  & ficheiro):instantes(0){
             {"instantes_entre_novos_barbaros", InstSpawnBarb},
             {"duração_barbaros", InstMaxBarbos}
     };
-
+    std::cout << InstSpawnBarb;
     std::ifstream file(ficheiro);
     if (!file.is_open()) {
         std::cerr << "Erro ao abrir o arquivo!" << std::endl;
@@ -108,6 +128,7 @@ int Game::getColunas() const {
 }
 
 void Game::novoTurno() {
+    instantes++;
 
     if(!HouveAlt){
     logs.str("");       //limpar logs
@@ -116,10 +137,18 @@ void Game::novoTurno() {
     }
 
     if(instantes % InstSpawnBarb == 0){
+        int nLinha;
+        int nColuna;
+       do {
 
+        nLinha = std::rand() % linhas;
+        nColuna = std::rand() % colunas;
+
+        } while (mapaReal[nLinha][nColuna] != '.');
+        BarbarosC.emplace_back(CarvBarbaros(false,nLinha,nColuna));
     }//criar uma cav barbaro
 
-
+    return;
 
 }
 
@@ -175,14 +204,61 @@ void Game::setMoedas(int moedas) {
 
 
 
-void Game::MoveCaravana(int id, char direcao){
+void Game::MoveCaravana(int id, char direcao) {
 
-    for( auto & caravana : CaravanasUser ){
-        if( caravana->getIdNoMapa()){
-            
+    for (auto &caravana: CaravanasUser) {
+        if (caravana->getIdNoMapa() == id) {
+            if (direcao == 'D' && (mapaReal[caravana->getPosLinha()][caravana->getPosColuna() + 1] == '.'))
+                if (caravana->move()) {
+                    if (!caravana->isEstaNaCidade()) {
+                        mapaReal[caravana->getPosLinha()][caravana->getPosColuna()] = '.';
+                    }
+                    mapaReal[caravana->getPosLinha()][caravana->getPosColuna() + 1] = static_cast<char>(id + '0');
+                    caravana->setPosColuna(caravana->getPosColuna() + 1);
+                    return;
+                } else {
+                    logs << "A caravana: " << caravana->getIdNoMapa() << " nao tem mais movimentos";
+                    return;
+                }
+
+            if (direcao == 'E' && (mapaReal[caravana->getPosLinha()][caravana->getPosColuna() - 1] == '.'))
+                if (caravana->move()) {
+                    if (!caravana->isEstaNaCidade()) {
+                        mapaReal[caravana->getPosLinha()][caravana->getPosColuna()] = '.';
+                    }
+                    mapaReal[caravana->getPosLinha()][caravana->getPosColuna() - 1] = static_cast<char>(id + '0');
+                    caravana->setPosColuna(caravana->getPosColuna() - 1);
+                    return;
+                } else {
+                    logs << "A caravana: " << caravana->getIdNoMapa() << " nao tem mais movimentos";
+                    return;
+                }
+            if (direcao == 'B' && (mapaReal[caravana->getPosLinha() - 1][caravana->getPosColuna()] == '.'))
+                if (caravana->move()) {
+                    if (!caravana->isEstaNaCidade()) {
+                        mapaReal[caravana->getPosLinha()][caravana->getPosColuna()] = '.';
+                    }
+                    mapaReal[caravana->getPosLinha() - 1][caravana->getPosColuna()] =  static_cast<char>(id + '0');
+                    caravana->setPosLinha(caravana->getPosLinha() - 1);
+                    return;
+                } else {
+                    logs << "A caravana: " << caravana->getIdNoMapa() << " nao tem mais movimentos";
+                    return;
+                }
+            if (direcao == 'C' && (mapaReal[caravana->getPosLinha() + 1][caravana->getPosColuna()] == '.'))
+                if (caravana->move()) {
+                    if (!caravana->isEstaNaCidade()) {
+                        mapaReal[caravana->getPosLinha()][caravana->getPosColuna()] = '.';
+                    }
+                    mapaReal[caravana->getPosLinha() + 1][caravana->getPosColuna()] =  static_cast<char>(id + '0');
+                    caravana->setPosLinha(caravana->getPosLinha() + 1);
+                    return;
+                } else {
+                    logs << "A caravana: " << caravana->getIdNoMapa() << " nao tem mais movimentos";
+                    return;
+                }
         }
     }
-
 }
 
 void Game::setHouveAlt(bool houveAlt) {

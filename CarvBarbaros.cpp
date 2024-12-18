@@ -2,5 +2,6 @@
 
 #include "CarvBarbaros.h"
 
-CarvBarbaros::CarvBarbaros(bool Cidade, int Linha, int Coluna) : Caravana(40), estaNaCidade, posLinha,
-                                                                posColuna, maxMov(1), movAtual(0)) {}
+CarvBarbaros::CarvBarbaros(bool Cidade, int Linha, int Coluna) : Caravana(40,Cidade,
+                                                                          Linha,Coluna,1,0)
+                                                                          {}

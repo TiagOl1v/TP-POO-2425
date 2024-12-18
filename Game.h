@@ -36,7 +36,10 @@ class Game {
     std::vector<Cidade> cidades;
     std::vector<std::unique_ptr<Caravana>> CaravanasUser;
     std::map<int, bool> maxCarv;
+    std::vector<CarvBarbaros> BarbarosC;
 
+    void VerfCombate();
+    void Combate();
 
 public:
 

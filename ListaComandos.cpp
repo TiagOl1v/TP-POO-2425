@@ -116,7 +116,8 @@ void moveCaravana(Game& jogo, const std::string& arg) {
         std::string secondArg = arg.substr(spacePos + 1);
         if((isNumber(firstArg)) && secondArg.size()  == 1 ){
             int idCaravana = stoi(firstArg);
-            std::cout << "Caravana com ID: " << idCaravana << "na direcao: " << secondArg;
+            jogo.MoveCaravana(idCaravana,secondArg[0]);
+            std::cout << "Caravana com ID: " << idCaravana << "na direcao: " << secondArg[0];
         } else{
             std::cout << "Argumentos invalidos: move <ID Caravana> <Direcao>" << std::endl;
         }

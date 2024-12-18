@@ -8,7 +8,6 @@
 class Caravana {
 
 
-    int id;
     int idNoMapa;
 
     int tripulantes;
@@ -17,22 +16,27 @@ class Caravana {
     int maxMov, movAtual;
 
 
-    int geraID();
-
 public:
 
     Caravana(int tripulantes, bool estaNaCidade, int posLinha,
              int posColuna, int maxMov, int movAtual);
 
 
-   virtual bool move(int numCasas);
-   virtual int getId() const;
+   virtual bool move();
 
     int getPosLinha() const;
     int getPosColuna() const;
 
-    void setIdNoMapa(int idNoMapa);
+    virtual void setIdNoMapa(int idNoMapa);
     virtual int getIdNoMapa() const;
+
+    void setPosLinha(int posLinha);
+
+    bool isEstaNaCidade() const;
+
+    void setEstaNaCidade(bool estaNaCidade);
+
+    void setPosColuna(int posColuna);
 };
 
 

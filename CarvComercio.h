@@ -14,7 +14,7 @@ class CarvComercio : public Caravana{
 
 public:
     CarvComercio(int l, int c);
-    bool move(int numCasas) override;
+
 };
 
 

@@ -2,10 +2,8 @@
 
 Cidade::Cidade(char cidade, int posLinha, int posColuna) : cidade(cidade), posLinha(posLinha), posColuna(posColuna) {
 
-
     std::cout << "LOG: cidade criada: " << cidade << " linha:" << posLinha << "coluna:" << posColuna << std::endl;
         Caravanas.push_back(std::make_unique<CarvComercio>(posLinha,posColuna));
-
 
 }
 

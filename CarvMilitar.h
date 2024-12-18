@@ -5,6 +5,7 @@
 #include "Caravana.h"
 class CarvMilitar : public Caravana {
 
+    int idNoMapa;
     int LitrosAtual,MaxLitros;
     int MaxCarga, cargaAtual;
 

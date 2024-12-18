@@ -24,8 +24,9 @@ void Interface::start() {
             AtualizaMapa();
             std::cout << buffer;
         }
-        else
+        else{
+            buffer.setInfo(jogo->getLogs());
         std::cout << buffer.getInfo();
-
+        }
     } while (comand != "sair");
 }
