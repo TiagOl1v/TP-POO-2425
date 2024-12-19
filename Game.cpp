@@ -15,6 +15,51 @@ bool verificaLetra(char letra){
 
     return flag;
 }
+
+
+bool Game::MovimentaAll(Caravana *caravana, char direcao){
+
+    int newPosL, newPosC;
+
+    if (direcao == 'D' && (mapaReal[caravana->getPosLinha()][caravana->getPosColuna() + 1] == '.')){
+            caravana->setPosColuna(caravana->getPosColuna() + 1);
+            newPosL = caravana->getPosLinha();
+            newPosC = caravana->getPosColuna();
+        }
+
+    else if (direcao == 'E' && (mapaReal[caravana->getPosLinha()][caravana->getPosColuna() - 1] == '.')){
+        caravana->setPosColuna(caravana->getPosColuna() - 1);
+        newPosL = caravana->getPosLinha();
+        newPosC = caravana->getPosColuna();
+        }
+    else if (direcao == 'B' && (mapaReal[caravana->getPosLinha() - 1][caravana->getPosColuna()] == '.')){
+        caravana->setPosColuna(caravana->getPosLinha() - 1);
+        newPosL = caravana->getPosLinha();
+        newPosC = caravana->getPosColuna();
+        }
+    else if (direcao == 'C' && (mapaReal[caravana->getPosLinha() + 1][caravana->getPosColuna()] == '.'))
+        if (caravana->move()) {
+            caravana->setPosColuna(caravana->getPosLinha() + 1);
+            newPosL = caravana->getPosLinha();
+            newPosC = caravana->getPosColuna();
+        }
+
+    if (!caravana->isEstaNaCidade()) {
+        mapaReal[newPosL][newPosC] = '.';
+    }
+    if(caravana->getIdNoMapa() != 99)  {
+    mapaReal[newPosL][newPosC] = static_cast<char>(caravana->getIdNoMapa() + '0');
+    logs << "Caravana do Utilizador id -> " << caravana->getIdNoMapa() << std::endl;
+        return true;
+    }else{
+        mapaReal[newPosL][newPosC] = '!';
+        logs << "Caravana Barbara movida!!!!" << std::endl;
+        return true;
+    }
+
+}
+
+
 void Game::Combate(){
 
 
@@ -208,55 +253,10 @@ void Game::MoveCaravana(int id, char direcao) {
 
     for (auto &caravana: CaravanasUser) {
         if (caravana->getIdNoMapa() == id) {
-            if (direcao == 'D' && (mapaReal[caravana->getPosLinha()][caravana->getPosColuna() + 1] == '.'))
-                if (caravana->move()) {
-                    if (!caravana->isEstaNaCidade()) {
-                        mapaReal[caravana->getPosLinha()][caravana->getPosColuna()] = '.';
-                    }
-                    mapaReal[caravana->getPosLinha()][caravana->getPosColuna() + 1] = static_cast<char>(id + '0');
-                    caravana->setPosColuna(caravana->getPosColuna() + 1);
-                    return;
-                } else {
-                    logs << "A caravana: " << caravana->getIdNoMapa() << " nao tem mais movimentos";
-                    return;
-                }
-
-            if (direcao == 'E' && (mapaReal[caravana->getPosLinha()][caravana->getPosColuna() - 1] == '.'))
-                if (caravana->move()) {
-                    if (!caravana->isEstaNaCidade()) {
-                        mapaReal[caravana->getPosLinha()][caravana->getPosColuna()] = '.';
-                    }
-                    mapaReal[caravana->getPosLinha()][caravana->getPosColuna() - 1] = static_cast<char>(id + '0');
-                    caravana->setPosColuna(caravana->getPosColuna() - 1);
-                    return;
-                } else {
-                    logs << "A caravana: " << caravana->getIdNoMapa() << " nao tem mais movimentos";
-                    return;
-                }
-            if (direcao == 'B' && (mapaReal[caravana->getPosLinha() - 1][caravana->getPosColuna()] == '.'))
-                if (caravana->move()) {
-                    if (!caravana->isEstaNaCidade()) {
-                        mapaReal[caravana->getPosLinha()][caravana->getPosColuna()] = '.';
-                    }
-                    mapaReal[caravana->getPosLinha() - 1][caravana->getPosColuna()] =  static_cast<char>(id + '0');
-                    caravana->setPosLinha(caravana->getPosLinha() - 1);
-                    return;
-                } else {
-                    logs << "A caravana: " << caravana->getIdNoMapa() << " nao tem mais movimentos";
-                    return;
-                }
-            if (direcao == 'C' && (mapaReal[caravana->getPosLinha() + 1][caravana->getPosColuna()] == '.'))
-                if (caravana->move()) {
-                    if (!caravana->isEstaNaCidade()) {
-                        mapaReal[caravana->getPosLinha()][caravana->getPosColuna()] = '.';
-                    }
-                    mapaReal[caravana->getPosLinha() + 1][caravana->getPosColuna()] =  static_cast<char>(id + '0');
-                    caravana->setPosLinha(caravana->getPosLinha() + 1);
-                    return;
-                } else {
-                    logs << "A caravana: " << caravana->getIdNoMapa() << " nao tem mais movimentos";
-                    return;
-                }
+            if(caravana->move()){
+                
+            }else
+                logs << "A caravana não possui mais movimentos neste turno";
         }
     }
 }

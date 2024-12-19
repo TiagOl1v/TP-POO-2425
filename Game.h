@@ -40,7 +40,7 @@ class Game {
 
     void VerfCombate();
     void Combate();
-
+    bool MovimentaAll(Caravana *caravana, char direcao);
 public:
 
     Game(std::string & ficheiro);
@@ -58,6 +58,7 @@ public:
     void MostraCarv();
     void MoveCaravana(int id, char direcao);
     const std::ostringstream &getLogs() const;
+
 
     void setHouveAlt(bool houveAlt);
     bool isHouveAlt() const;
