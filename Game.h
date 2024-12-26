@@ -38,9 +38,12 @@ class Game {
     std::map<int, bool> maxCarv;
     std::vector<CarvBarbaros> BarbarosC;
 
+    void AtualizaQuemEstaNaCidade();
     void VerfCombate();
     void Combate();
-    bool MovimentaAll(Caravana *caravana, char direcao);
+    bool Movimenta(Caravana *caravana, char direcao);
+    bool Movimenta(std::unique_ptr<Caravana>& caravana, char direcao);
+
 public:
 
     Game(std::string & ficheiro);
@@ -62,7 +65,12 @@ public:
 
     void setHouveAlt(bool houveAlt);
     bool isHouveAlt() const;
+    void resetLogs();
+    void CreateBarber(int l, int c);
+    void compraMercadoria(int Merc, int id);
 
+    void MostraPmerc();
+    
     ~Game();
 
 

@@ -27,16 +27,20 @@ public:
     int getPosLinha() const;
     int getPosColuna() const;
 
-    virtual void setIdNoMapa(int idNoMapa);
+    void setIdNoMapa(int idNoMapa);
     virtual int getIdNoMapa() const;
 
     void setPosLinha(int posLinha);
+
+    void resetMoves();
 
     bool isEstaNaCidade() const;
 
     void setEstaNaCidade(bool estaNaCidade);
 
     void setPosColuna(int posColuna);
+
+
 };
 
 

@@ -57,3 +57,7 @@ bool Caravana::isEstaNaCidade() const {
 void Caravana::setEstaNaCidade(bool estaNaCidade) {
     Caravana::estaNaCidade = estaNaCidade;
 };
+
+void Caravana::resetMoves(){
+    movAtual = 0;
+}

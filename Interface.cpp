@@ -1,7 +1,13 @@
 
 #include "Interface.h"
 
+
+
 Interface::Interface(Game & jogo): buffer(jogo.getLinhas(),jogo.getColunas()),comandos(),jogo(&jogo) {}
+
+void Interface::InterageMapa(){
+
+};
 
 void Interface::AtualizaMapa(){
 
@@ -17,16 +23,18 @@ void Interface::start() {
     std::string comand;
 
     do {
-        jogo->novoTurno();
+
         std::getline(std::cin, comand);  // Lê a linha inteira até o enter
-        buffer.setInfo(jogo->getLogs());
+
         if(comandos.ExecutaComando(*jogo,comand)){
+            buffer.setInfo(jogo->getLogs());
             AtualizaMapa();
             std::cout << buffer;
         }
         else{
+            InterageMapa(comand);
             buffer.setInfo(jogo->getLogs());
-        std::cout << buffer.getInfo();
+            std::cout << buffer.getInfo();
         }
     } while (comand != "sair");
 }

@@ -33,3 +33,11 @@ bool Cidade::compraCaravana( std::vector<std::unique_ptr<Caravana>>& GameCarv, c
     return false;
 
 }
+
+int Cidade::getPosLinha() const {
+    return posLinha;
+}
+
+int Cidade::getPosColuna() const {
+    return posColuna;
+}

@@ -14,7 +14,6 @@ void avancaInst(Game& jogo, const std::string& arg) {
 
     if((isNumber(arg))){
         int num = stoi(arg);
-        std::cout << "Vai avancar " << num;
         for (int i = 0; i < num; ++i) {
             jogo.novoTurno();
         }
@@ -49,8 +48,7 @@ void CompraCaravana(Game& jogo, const std::string& arg) {
 void ListaPrecos(Game& jogo, const std::string& arg) {
     jogo.MostraCarv();
         if (arg.empty())
-          jogo.MostraCarv();
-
+          jogo.MostraPmerc();
         else
             std::cout << "Argumentos invalidos: precos" << std::endl;
 
@@ -89,6 +87,7 @@ void CompraMercadoria(Game& jogo, const std::string& arg) {
             int numToneladas = stoi(firstArg);
             int idCaravana = stoi(secondArg);
             std::cout << "toneladas: " << numToneladas << "id caravana " << idCaravana;
+
         } else{
             std::cout << "Argumentos invalidos: compra <Numero de toneladas> <ID Caravana>" << std::endl;
         }
@@ -145,6 +144,27 @@ void AltMoedas(Game& jogo, const std::string& arg) {
 
 }
 
+void CreateB(Game& jogo, const std::string& arg) {
+
+    size_t spacePos = arg.find(' ');
+
+    if (arg.empty()) {
+        std::cout << "Argumentos invalidos: compra <Numero de toneladas> <ID Caravana>" << std::endl;
+    } else {
+        std::string firstArg = arg.substr(0, spacePos);
+        std::string secondArg = arg.substr(spacePos + 1);
+        if ((isNumber(firstArg)) && (isNumber(secondArg))) {
+
+            int L = stoi(firstArg);
+            int C = stoi(secondArg);
+            jogo.CreateBarber(L,C);
+
+        } else {
+            std::cout << "Argumentos invalidos: compra <Numero de toneladas> <ID Caravana>" << std::endl;
+        }
+    }
+}
+
 ListaComandos::ListaComandos(){
 
     comandos = {
@@ -160,6 +180,7 @@ ListaComandos::ListaComandos(){
             {"move", moveCaravana},
             {"moedas", AltMoedas},
             {"minhasc", mostraAllMyCarav},
+            {"barbaro", CreateB},
 
     };
 
@@ -168,13 +189,14 @@ ListaComandos::ListaComandos(){
 bool ListaComandos::ExecutaComando(Game &J, std::string comando) {
 
     J.setHouveAlt(false);
+    J.resetLogs();
+
     std::string com;
     std::string argumentos;
     size_t pos = comando.find(' ');
 
     com = comando.substr(0, pos);
 
-    // Extrai os argumentos (parte apos o espaço)
     argumentos = comando.substr(pos + 1);
     auto it = comandos.find(com);
     if (it != comandos.end()) {

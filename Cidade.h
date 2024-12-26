@@ -13,6 +13,10 @@ class Cidade {
     char cidade;//char que identifica a cidade
     std::vector<std::unique_ptr<Caravana>> Caravanas;
     int posLinha, posColuna;
+public:
+    int getPosLinha() const;
+
+    int getPosColuna() const;
 
 public:
     Cidade(char cidade, int posLinha, int posColuna);
