@@ -17,7 +17,7 @@ class Interface {
 
     void AtualizaMapa();
 
-    void InterageMapa();
+    void InterageMapa(std::string comando);
 public:
 
     Interface(Game & jogo);

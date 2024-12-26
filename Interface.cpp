@@ -5,7 +5,7 @@
 
 Interface::Interface(Game & jogo): buffer(jogo.getLinhas(),jogo.getColunas()),comandos(),jogo(&jogo) {}
 
-void Interface::InterageMapa(){
+void Interface::InterageMapa(std::string comando){
 
 };
 
