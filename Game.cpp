@@ -23,45 +23,74 @@ bool Game::Movimenta(Caravana *caravana, char direcao) {
     int newPosL, newPosC;
     bool moveu = false;
 
-    if (direcao == 'D' && (mapaReal[caravana->getPosLinha()][caravana->getPosColuna() + 1] == '.')) {
-        caravana->setPosColuna(caravana->getPosColuna() + 1);
-        newPosL = caravana->getPosLinha();
-        newPosC = caravana->getPosColuna();
+    newPosL = caravana->getPosLinha();
+    newPosC = caravana->getPosColuna();
 
-        if (!caravana->isEstaNaCidade())
-            mapaReal[newPosL - 1][newPosC] = '.';
+    if (direcao == 'D'){
+        ++newPosC;
 
-        moveu = true;
-    } else if (direcao == 'E' && (mapaReal[caravana->getPosLinha()][caravana->getPosColuna() - 1] == '.')) {
-        caravana->setPosColuna(caravana->getPosColuna() - 1);
-        newPosL = caravana->getPosLinha();
-        newPosC = caravana->getPosColuna();
+        if(newPosC == colunas)
+            newPosC = 0;
 
-        if (!caravana->isEstaNaCidade())
-            mapaReal[newPosL][newPosC + 1] = '.';
+        if((mapaReal[newPosL][newPosC] == '.') || verificaLetra(mapaReal[newPosL][newPosC]) ) {
+            if (caravana->move()) {
 
+                if (!caravana->isEstaNaCidade())
+                    mapaReal[caravana->getPosLinha()][caravana->getPosColuna()] = '.';
 
-        moveu = true;
-    } else if (direcao == 'B' && (mapaReal[caravana->getPosLinha() - 1][caravana->getPosColuna()] == '.')) {
-        caravana->setPosLinha(caravana->getPosLinha() - 1);
-        newPosL = caravana->getPosLinha();
-        newPosC = caravana->getPosColuna();
-
-        if (!caravana->isEstaNaCidade())
-            mapaReal[newPosL + 1][newPosC] = '.';
-
-        moveu = true;
-    } else if (direcao == 'C' && (mapaReal[caravana->getPosLinha() + 1][caravana->getPosColuna()] == '.'))
-        if (caravana->move()) {
-            caravana->setPosLinha(caravana->getPosLinha() + 1);
-            newPosL = caravana->getPosLinha();
-            newPosC = caravana->getPosColuna();
-
-            if (!caravana->isEstaNaCidade())
-                mapaReal[newPosL - 1][newPosC] = '.';
-
-            moveu = true;
+                caravana->setPosColuna(newPosC);
+                moveu = true;
+            }
         }
+    }else if (direcao == 'E'){
+        --newPosC;
+
+        if(newPosC == -1)
+            newPosC = colunas - 1;
+
+        if((mapaReal[newPosL][newPosC] == '.') || verificaLetra(mapaReal[newPosL][newPosC]) ) {
+            if (caravana->move()) {
+
+                if (!caravana->isEstaNaCidade())
+                    mapaReal[caravana->getPosLinha()][caravana->getPosColuna()] = '.';
+
+                caravana->setPosColuna(newPosC);
+                moveu = true;
+            }
+        }
+    } else if (direcao == 'B'){
+        ++newPosL;
+
+        if(newPosL == linhas)
+            newPosL = 0;
+
+        if((mapaReal[newPosL][newPosC] == '.') || verificaLetra(mapaReal[newPosL][newPosC]) ) {
+            if (caravana->move()) {
+
+                if (!caravana->isEstaNaCidade())
+                    mapaReal[caravana->getPosLinha()][caravana->getPosColuna()] = '.';
+
+                caravana->setPosLinha(newPosL);
+                moveu = true;
+            }
+        }
+    } else if (direcao == 'C'){
+        --newPosL;
+
+        if(newPosL == -1)
+            newPosL = linhas - 1;
+
+        if((mapaReal[newPosL][newPosC] == '.') || verificaLetra(mapaReal[newPosL][newPosC]) ) {
+            if (caravana->move()) {
+
+                if (!caravana->isEstaNaCidade())
+                    mapaReal[caravana->getPosLinha()][caravana->getPosColuna()] = '.';
+
+                caravana->setPosLinha(newPosL);
+                moveu = true;
+            }
+        }
+    }
 
     if (moveu) {
 
@@ -78,49 +107,80 @@ bool Game::Movimenta(std::unique_ptr<Caravana>& caravana, char direcao){
     int newPosL, newPosC;
     bool moveu = false;
 
-    if (direcao == 'D' && (mapaReal[caravana->getPosLinha()][caravana->getPosColuna() + 1] == '.')) {
-        caravana->setPosColuna(caravana->getPosColuna() + 1);
-        newPosL = caravana->getPosLinha();
-        newPosC = caravana->getPosColuna();
+    newPosL = caravana->getPosLinha();
+    newPosC = caravana->getPosColuna();
 
-        if (!caravana->isEstaNaCidade())
-            mapaReal[newPosL][newPosC - 1] = '.';
+    if (direcao == 'D'){
+        ++newPosC;
 
-        moveu = true;
-    } else if (direcao == 'E' && (mapaReal[caravana->getPosLinha()][caravana->getPosColuna() - 1] == '.')) {
-        caravana->setPosColuna(caravana->getPosColuna() - 1);
-        newPosL = caravana->getPosLinha();
-        newPosC = caravana->getPosColuna();
+        if(newPosC == colunas)
+            newPosC = 0;
 
-        if (!caravana->isEstaNaCidade())
-            mapaReal[newPosL][newPosC + 1] = '.';
+        if((mapaReal[newPosL][newPosC] == '.') || verificaLetra(mapaReal[newPosL][newPosC]) ) {
+            if (caravana->move()) {
 
+                if (!caravana->isEstaNaCidade())
+                    mapaReal[caravana->getPosLinha()][caravana->getPosColuna()] = '.';
 
-        moveu = true;
-    } else if (direcao == 'B' && (mapaReal[caravana->getPosLinha() + 1][caravana->getPosColuna()] == '.')) {
-        caravana->setPosLinha(caravana->getPosLinha() + 1);
-        newPosL = caravana->getPosLinha();
-        newPosC = caravana->getPosColuna();
-
-        if (!caravana->isEstaNaCidade())
-            mapaReal[newPosL - 1][newPosC] = '.';
-
-        moveu = true;
-    } else if (direcao == 'C' && (mapaReal[caravana->getPosLinha() -1 ][caravana->getPosColuna()] == ('.')))
-        if (caravana->move()) {
-            caravana->setPosLinha(caravana->getPosLinha() - 1);
-            newPosL = caravana->getPosLinha();
-            newPosC = caravana->getPosColuna();
-
-            if (!caravana->isEstaNaCidade())
-                mapaReal[newPosL + 1][newPosC] = '.';
-
-            moveu = true;
+                caravana->setPosColuna(newPosC);
+                moveu = true;
+            }
         }
+    }else if (direcao == 'E'){
+        --newPosC;
+
+        if(newPosC == - 1)
+            newPosC = colunas - 1;
+
+        if((mapaReal[newPosL][newPosC] == '.') || verificaLetra(mapaReal[newPosL][newPosC]) ) {
+            if (caravana->move()) {
+
+                if (!caravana->isEstaNaCidade())
+                    mapaReal[caravana->getPosLinha()][caravana->getPosColuna()] = '.';
+
+                caravana->setPosColuna(newPosC);
+                moveu = true;
+            }
+        }
+    } else if (direcao == 'B'){
+        ++newPosL;
+
+        if(newPosL == linhas)
+            newPosL = 0;
+
+        if((mapaReal[newPosL][newPosC] == '.') || verificaLetra(mapaReal[newPosL][newPosC]) ) {
+            if (caravana->move()) {
+
+                if (!caravana->isEstaNaCidade())
+                    mapaReal[caravana->getPosLinha()][caravana->getPosColuna()] = '.';
+
+                caravana->setPosLinha(newPosL);
+                moveu = true;
+            }
+        }
+    } else if (direcao == 'C'){
+        --newPosL;
+
+        if(newPosL == -1)
+            newPosL = linhas - 1;
+
+        if((mapaReal[newPosL][newPosC] == '.') || verificaLetra(mapaReal[newPosL][newPosC]) ) {
+            if (caravana->move()) {
+
+                if (!caravana->isEstaNaCidade())
+                    mapaReal[caravana->getPosLinha()][caravana->getPosColuna()] = '.';
+
+                caravana->setPosLinha(newPosL);
+                moveu = true;
+            }
+        }
+    }
 
     if (moveu) {
-
+        AtualizaQuemEstaNaCidade();
+        if(!caravana->isEstaNaCidade())
         mapaReal[newPosL][newPosC] = static_cast<char>(caravana->getIdNoMapa() + '0');
+
         logs << "Caravana do Utilizador id -> " << caravana->getIdNoMapa() << " foi movida" << std::endl;
 
     }
@@ -132,7 +192,7 @@ void Game::AtualizaQuemEstaNaCidade(){
 
     for (auto &caravana: CaravanasUser) {
         for (const Cidade &cidade : cidades) {
-            if( (caravana->getPosLinha() == cidade.getPosLinha())  && caravana->getPosColuna() == cidade.getPosColuna()){
+            if( (caravana->getPosLinha() == cidade.getPosLinha())  && (caravana->getPosColuna() == cidade.getPosColuna())){
                     caravana->setEstaNaCidade(true);
                     break;
             }
@@ -216,11 +276,11 @@ Game::Game(std::string  & ficheiro):instantes(0){
         for (int j = 0; j < colunas; ++j) {
             mapaReal[i][j] = linha[j];
             if(verificaLetra(mapaReal[i][j])){
-                cidades.push_back(Cidade(mapaReal[i][j],i,j));
+                cidades.emplace_back(mapaReal[i][j],i,j);
             }
 
         }
-        mapaReal[i][colunas] = '\0'; // Garantir que está null-terminated
+        mapaReal[i][colunas] = '\0';
     }
 
     while (std::getline(file, linha)) {

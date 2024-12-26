@@ -17,7 +17,12 @@ class Interface {
 
     void AtualizaMapa();
 
-    void InterageMapa(std::string comando);
+    void DeleUmacopia (std::string arg);
+    void mostraUmacopia(std::string arg);
+    void MostraAllCop();
+    void CriaUmacopia(std::string arg);
+
+    bool InterageMapa(std::string comando);
 public:
 
     Interface(Game & jogo);
