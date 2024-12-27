@@ -14,6 +14,7 @@ class Buffer {
 public:
     Buffer(int a, int l);
     ~Buffer();
+    Buffer(const Buffer& other);
 
     int getLargura() const;
 
@@ -23,6 +24,8 @@ public:
     const char* operator[](int linha) const;
 
     void setInfo(const std::ostringstream &info);
+
+    Buffer& operator=(const Buffer& other);
 
     const std::string &getInfo() const;
 

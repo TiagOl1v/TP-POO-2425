@@ -17,6 +17,37 @@ const char* Buffer::operator[](int linha) const {
     return mapa[linha];
 }
 
+Buffer::Buffer(const Buffer& other) : largura(other.largura), altura(other.altura), info(other.info) {
+    mapa = new char*[altura];
+    for (int i = 0; i < altura; ++i) {
+        mapa[i] = new char[largura + 1];
+        std::copy(other.mapa[i], other.mapa[i] + largura + 1, mapa[i]);
+    }
+}
+
+Buffer& Buffer::operator=(const Buffer& other) {
+    if (this == &other) return *this; // Evita auto-atribuição
+
+    // Libera os recursos existentes
+    for (int i = 0; i < altura; ++i) {
+        delete[] mapa[i];
+    }
+    delete[] mapa;
+
+    // Copia os valores do outro Buffer
+    largura = other.largura;
+    altura = other.altura;
+    info = other.info;
+
+    mapa = new char*[altura];
+    for (int i = 0; i < altura; ++i) {
+        mapa[i] = new char[largura + 1];
+        std::copy(other.mapa[i], other.mapa[i] + largura + 1, mapa[i]);
+    }
+
+    return *this;
+}
+
 Buffer::~Buffer() {
     for (int i = 0; i < altura; ++i) {
         delete[] mapa[i];
