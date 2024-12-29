@@ -327,6 +327,9 @@ Game::Game(std::string  & ficheiro):instantes(0){
             if(verificaLetra(mapaReal[i][j])){
                 cidades.emplace_back(mapaReal[i][j],i,j);
             }
+            else if(mapaReal[i][j] != '.' && mapaReal[i][j] != '+'){
+                mapaReal[i][j]= '.';
+            }
 
 
         }
