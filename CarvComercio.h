@@ -14,6 +14,10 @@ class CarvComercio : public Caravana{
 
 public:
     CarvComercio(int l, int c);
+    int getMaxCarga() const;
+    int getcargaAtual() const;
+    void setcargaAtual(int carga);
+    void zeracargaAtual();
 
 };
 

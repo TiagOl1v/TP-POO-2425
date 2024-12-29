@@ -9,8 +9,12 @@ class CarvMilitar : public Caravana {
     int LitrosAtual,MaxLitros;
     int MaxCarga, cargaAtual;
 
-
+public:
+    CarvMilitar(int l, int c);
+    int getMaxCarga() const;
+    int getcargaAtual() const;
+    void setcargaAtual(int carga);
+    void zeracargaAtual();
 };
-
 
 #endif //TP_POO2425_CARVMILITAR_H

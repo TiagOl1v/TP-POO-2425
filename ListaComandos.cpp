@@ -79,17 +79,18 @@ void CompraMercadoria(Game& jogo, const std::string& arg) {
     size_t spacePos = arg.find(' ');
 
     if (arg.empty()) {
-        std::cout << "Argumentos invalidos: compra <Numero de toneladas> <ID Caravana>" << std::endl;
+        std::cout << "Argumentos invalidos: compra <ID Caravana> <Numero de toneladas>" << std::endl;
     } else {
         std::string firstArg = arg.substr(0, spacePos);
         std::string secondArg = arg.substr(spacePos + 1);
         if((isNumber(firstArg)) && (isNumber(secondArg)) ){
-            int numToneladas = stoi(firstArg);
-            int idCaravana = stoi(secondArg);
-            std::cout << "toneladas: " << numToneladas << "id caravana " << idCaravana;
+            int idCaravana = stoi(firstArg);
+            int numToneladas = stoi(secondArg);
+            jogo.compraMercadoria(idCaravana, numToneladas);
+            std::cout << "id caravana " << idCaravana << "toneladas: " << numToneladas ;
 
         } else{
-            std::cout << "Argumentos invalidos: compra <Numero de toneladas> <ID Caravana>" << std::endl;
+            std::cout << "Argumentos invalidos: compra <ID Caravana> <Numero de toneladas>" << std::endl;
         }
     }
 }
@@ -98,6 +99,7 @@ void vendeMercadoria(Game& jogo, const std::string& arg) {
 
     if((isNumber(arg))){
         int num = stoi(arg);
+        jogo.vendeMercadoria(num);
         std::cout << "id caravana " << num;
     }
     else

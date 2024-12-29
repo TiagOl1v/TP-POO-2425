@@ -460,6 +460,67 @@ void Game::CreateBarber(int l, int c){
         logs << "[FALHA] Nao foi realizado o spawn Caravana de barbaros" << std::endl;
 }
 
+void Game::compraMercadoria(int idCarv, int toneladas) {
+    for (auto &caravana: CaravanasUser) {
+        if (caravana->getIdNoMapa() == idCarv) {
+            if (!caravana->isEstaNaCidade()) {
+                logs << "[FALHA] Precisa estar na cidade para comprar mercadoria" << std::endl;
+                return;
+            }
+
+            if (moedas < CompraMercadoria * toneladas) {
+                logs << "[FALHA] Nao tem dinheiro suficiente " << std::endl;
+                return;
+            }
+
+            if (auto comercio = dynamic_cast<CarvComercio *>(caravana.get())) {
+                if (toneladas > comercio->getMaxCarga()) {
+                    logs << "[FALHA] A carga maxima da caravana ja foi excedida! " << std::endl;
+                    return;
+                }
+                comercio->setcargaAtual(toneladas);
+            } else if (auto militar = dynamic_cast<CarvMilitar *>(caravana.get())) {
+                if (toneladas > militar->getMaxCarga()) {
+                    logs << "[FALHA] A carga maxima da caravana ja foi excedida! " << std::endl;
+                    return;
+                }
+                militar->setcargaAtual(toneladas);
+            }
+
+            moedas -= CompraMercadoria * toneladas;
+            logs << "[SUCESSO] Mercadoria comprada com sucesso!" << std::endl;
+            return;
+        }
+    }
+
+    // nenhuma caravana encontrada
+    logs << "[FALHA] A caravana com esse id nao foi encontrada" << std::endl;
+}
+
+void Game::vendeMercadoria(int idCarv) {
+    for (auto &caravana: CaravanasUser) {
+        if (caravana->getIdNoMapa() == idCarv) {
+            if (!caravana->isEstaNaCidade()) {
+                logs << "[FALHA] Precisa estar na cidade para vender mercadoria" << std::endl;
+                return;
+            }
+
+            if (auto comercio = dynamic_cast<CarvComercio *>(caravana.get())) {
+                moedas += VendaMercadoria * comercio->getcargaAtual();
+                comercio->zeracargaAtual();
+            } else if (auto militar = dynamic_cast<CarvMilitar *>(caravana.get())) {
+                moedas += VendaMercadoria * militar->getcargaAtual();
+                militar->zeracargaAtual();
+            }
+        }
+        logs << "[SUCESSO] Mercadorias vendidas com sucesso!" << std::endl;
+        return;
+    }
+
+    // nenhuma caravana encontrada
+    logs << "[FALHA] A caravana com esse id nao foi encontrada" << std::endl;
+}
+
 void Game::setHouveAlt(bool houveAlt) {
     HouveAlt = houveAlt;
 }

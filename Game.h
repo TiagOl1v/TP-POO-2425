@@ -67,7 +67,8 @@ public:
     bool isHouveAlt() const;
     void resetLogs();
     void CreateBarber(int l, int c);
-    void compraMercadoria(int Merc, int id);
+    void compraMercadoria(int idCarv, int toneladas);
+    void vendeMercadoria(int idCarv);
 
     void MostraPmerc();
     
