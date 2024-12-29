@@ -24,4 +24,6 @@ add_executable(TP_POO2425
         CarvBarbaros.cpp
         CarvBarbaros.h
         CarvMilitar.cpp
-        CarvMilitar.h)
+        CarvMilitar.h
+        CarvSecreta.cpp
+        CarvSecreta.h)

@@ -69,6 +69,7 @@ public:
     void CreateBarber(int l, int c);
     void compraMercadoria(int idCarv, int toneladas);
     void vendeMercadoria(int idCarv);
+    void compraTripulantes(int idCarv, int tripulantes);
 
     void MostraPmerc();
     

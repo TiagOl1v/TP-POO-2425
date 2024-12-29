@@ -1,4 +1,4 @@
-
+#include <algorithm>
 #include "ListaComandos.h"
 
 bool isNumber(const std::string& str) {
@@ -106,6 +106,27 @@ void vendeMercadoria(Game& jogo, const std::string& arg) {
         std::cout << "Argumentos incorretos";
 }
 
+void CompraTripulacao(Game& jogo, const std::string& arg) {
+
+    size_t spacePos = arg.find(' ');
+
+    if (arg.empty()) {
+        std::cout << "Argumentos invalidos: compra <ID Caravana> <Numero de tripulantes>" << std::endl;
+    } else {
+        std::string firstArg = arg.substr(0, spacePos);
+        std::string secondArg = arg.substr(spacePos + 1);
+        if((isNumber(firstArg)) && (isNumber(secondArg)) ){
+            int idCaravana = stoi(firstArg);
+            int numTripulantes = stoi(secondArg);
+            jogo.compraTripulantes(idCaravana, numTripulantes);
+            std::cout << "id caravana " << idCaravana << "tripulantes: " << numTripulantes ;
+
+        } else{
+            std::cout << "Argumentos invalidos: compra <ID Caravana> <Numero de tripulantes>" << std::endl;
+        }
+    }
+}
+
 void moveCaravana(Game& jogo, const std::string& arg) {
 
     size_t spacePos = arg.find(' ');
@@ -178,6 +199,7 @@ ListaComandos::ListaComandos(){
             {"cidade", ListaConteudo},
             {"caravana", MostraDetalhesCaravana},
             {"compra", CompraMercadoria},
+            {"tripul", CompraTripulacao},
             {"vende", vendeMercadoria},
             {"move", moveCaravana},
             {"moedas", AltMoedas},

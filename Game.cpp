@@ -521,6 +521,38 @@ void Game::vendeMercadoria(int idCarv) {
     logs << "[FALHA] A caravana com esse id nao foi encontrada" << std::endl;
 }
 
+void Game::compraTripulantes(int idCarv, int tripulantes) {
+    for (auto &caravana: CaravanasUser) {
+        if (caravana->getIdNoMapa() == idCarv) {
+            if (!caravana->isEstaNaCidade()) {
+                logs << "[FALHA] Precisa estar na cidade para comprar tripulacao" << std::endl;
+                return;
+            }
+
+            if (dynamic_cast<CarvComercio *>(caravana.get())) {
+                if (tripulantes + caravana->getTripulacao() > 30) {
+                    logs << "[FALHA] A tripulacao maxima da caravana ja foi excedida! " << std::endl;
+                    return;
+                }
+                caravana->setTripulacao(tripulantes);
+            } else if (dynamic_cast<CarvMilitar *>(caravana.get())) {
+                if (tripulantes + caravana->getTripulacao() > 40) {
+                    logs << "[FALHA] A carga maxima da caravana ja foi excedida! " << std::endl;
+                    return;
+                }
+                caravana->setTripulacao(tripulantes);
+            }
+
+            moedas -= tripulantes; //1 moeda cada tripulante comprado
+            logs << "[SUCESSO] Tripulacao comprada com sucesso!" << std::endl;
+            return;
+        }
+    }
+
+    // nenhuma caravana encontrada
+    logs << "[FALHA] A caravana com esse id nao foi encontrada" << std::endl;
+}
+
 void Game::setHouveAlt(bool houveAlt) {
     HouveAlt = houveAlt;
 }

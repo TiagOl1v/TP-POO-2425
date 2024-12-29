@@ -24,6 +24,8 @@ public:
 
    virtual bool move();
 
+    int getTripulacao() const;
+    void setTripulacao(int trip);
     int getPosLinha() const;
     int getPosColuna() const;
 

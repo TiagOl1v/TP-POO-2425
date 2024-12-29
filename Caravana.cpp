@@ -26,6 +26,15 @@ bool Caravana::move(){
 
 }
 
+int Caravana::getTripulacao() const{
+    return tripulantes;
+}
+
+void Caravana::setTripulacao(int trip) {
+    tripulantes += trip;
+}
+
+
 int Caravana::getPosLinha() const {
     return posLinha;
 }
@@ -61,3 +70,4 @@ void Caravana::setEstaNaCidade(bool estaNaCidade) {
 void Caravana::resetMoves(){
     movAtual = 0;
 }
+
