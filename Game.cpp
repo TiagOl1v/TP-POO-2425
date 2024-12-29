@@ -94,8 +94,8 @@ bool Game::Movimenta(Caravana *caravana, char direcao) {
 
     if (moveu) {
 
-        mapaReal[newPosL][newPosC] = static_cast<char>(caravana->getIdNoMapa() + '0');
-        logs << "Caravana Barabara foi movida " << std::endl;
+        mapaReal[newPosL][newPosC] = '!';
+        logs << "Caravana Barabara foi movida cuidado! " << std::endl;
 
     }
     return moveu;
@@ -216,28 +216,76 @@ void Game::AtualizaQuemEstaNaCidade(){
 }
 
 
-void Game::Combate(){
-
-
-
-}
 
 void Game::VerfCombate(){
+    bool removeBarbaro = false;
+    int numSorteioUser,numSorteioBarbaro;
 
-    for (CarvBarbaros & Bab : BarbarosC ){
+    for (auto Bab = BarbarosC.begin(); Bab != BarbarosC.end(); ) {
+        bool removeBarbaro = false;
         for(auto & carvUser : CaravanasUser){
-            if( (Bab.getPosColuna() == (carvUser->getPosColuna() + 1 )) || Bab.getPosColuna() == (carvUser->getPosColuna() - 1 ) || Bab.getPosColuna() == (carvUser->getPosColuna())){
-                if ((Bab.getPosLinha() == (carvUser->getPosLinha() + 1 )) || Bab.getPosLinha() == (carvUser->getPosLinha() - 1 ) || (Bab.getPosLinha() == (carvUser->getPosLinha() ))){
+            if( (Bab->getPosColuna() == (carvUser->getPosColuna() + 1 )) || Bab->getPosColuna() == (carvUser->getPosColuna() - 1 ) || Bab->getPosColuna() == (carvUser->getPosColuna())){
+                if ((Bab->getPosLinha() == (carvUser->getPosLinha() + 1 )) || Bab->getPosLinha() == (carvUser->getPosLinha() - 1 ) || (Bab->getPosLinha() == (carvUser->getPosLinha() ))){
+                        if(!carvUser->isEstaNaCidade() && !Bab->isEstaNaCidade()){
+                            logs << "BATALHA!!! entre a caravana do user id -> " << carvUser->getIdNoMapa() << "e caravana barbara"<< std::endl;
+                             numSorteioBarbaro = Bab->batalha() ;
+                             numSorteioUser = carvUser->batalha() ;
+                            logs << "Numero Sorteado pela carv user: " <<numSorteioUser << " numero sorteado pela carv barbara: "<< numSorteioBarbaro << std::endl;
+                            if ( numSorteioUser < numSorteioBarbaro)
+                            {
+                                int tripulacaoRetirada =  carvUser->getTripulacao() - Bab->AposCombate();
+                                if(tripulacaoRetirada <= 0) {
 
+                                    std::vector<std::unique_ptr<Caravana>> temp;
+                                    for (auto& aux : CaravanasUser) {
+                                        if (aux->getIdNoMapa() != carvUser->getIdNoMapa()) {
+                                            temp.push_back(std::move(aux));
+                                        }
+                                    }
+                                    maxCarv[carvUser->getIdNoMapa()] = false;
+                                    mapaReal[carvUser->getPosLinha()][carvUser->getPosColuna()] = '.';
+                                    logs << "Caravana do user foi eleminada com id -> " << carvUser->getIdNoMapa() << std::endl;
+
+                                    CaravanasUser = std::move(temp);
+                                    break;
+                                }
+                                else{
+                                     carvUser->setTripulacao2(tripulacaoRetirada);
+                                    logs << "Foram retirados tripulantes carv user: " << tripulacaoRetirada <<std::endl;
+                                }
+                            }else if(numSorteioUser > numSorteioBarbaro){
+                                int RetiradaR = Bab->getTripulacao() - carvUser->AposCombate();
+                                if(RetiradaR <= 0){
+                                    logs << "Caravana bárbara foi eliminada." << std::endl;
+                                    removeBarbaro = true;
+                                    mapaReal[Bab->getPosLinha()][Bab->getPosColuna()] = '.';
+                                    logs << "Foram retirados pela carv Bab: " << RetiradaR <<std::endl;
+                                    break;
+                                }else{
+                                    Bab->setTripulacao2(RetiradaR);
+                                    logs << "Foram tripulantes  pela carv Bab: " << RetiradaR <<std::endl;
+                                }
+
+
+                            }else
+                                logs << "Deu empate!! " << std::endl;
+
+                        }
                 }
             }
         }
+        if (removeBarbaro) {
+            Bab = BarbarosC.erase(Bab);
+        } else {
+            ++Bab;
+        }
     }
+
 
 }
 
 Game::Game(std::string  & ficheiro):instantes(0){
-
+    std::srand(std::time(0));
     std::map<std::string, std::reference_wrapper<int>> parametros = {
             {"moedas", moedas},
             {"instantes_entre_novos_itens", novosItens},
@@ -249,7 +297,7 @@ Game::Game(std::string  & ficheiro):instantes(0){
             {"instantes_entre_novos_barbaros", InstSpawnBarb},
             {"duração_barbaros", InstMaxBarbos}
     };
-    std::cout << InstSpawnBarb;
+
     std::ifstream file(ficheiro);
     if (!file.is_open()) {
         std::cerr << "Erro ao abrir o arquivo!" << std::endl;
@@ -275,9 +323,11 @@ Game::Game(std::string  & ficheiro):instantes(0){
 
         for (int j = 0; j < colunas; ++j) {
             mapaReal[i][j] = linha[j];
+
             if(verificaLetra(mapaReal[i][j])){
                 cidades.emplace_back(mapaReal[i][j],i,j);
             }
+
 
         }
         mapaReal[i][colunas] = '\0';
@@ -339,23 +389,28 @@ void Game::novoTurno() {
         HouveAlt= true;
     }
 
+    AtualizaQuemEstaNaCidade();
+    VerfCombate();
+
     if(instantes % InstSpawnBarb == 0){
         int nLinha;
         int nColuna;
 
        do {
-           std::srand(std::time(0));
+
         nLinha = std::rand() % linhas;
         nColuna = std::rand() % colunas;
 
         } while (mapaReal[nLinha][nColuna] != '.');
         BarbarosC.emplace_back(false,nLinha,nColuna);
         BarbarosC.back().setIdNoMapa(99);
+        mapaReal[nLinha][nColuna] = '!';
+        logs << "Spawn Caravana Barbara " << std::endl;
     }//criar uma cav barbaro
 
     for (CarvBarbaros& barbaro : BarbarosC) {
-        std::srand(std::time(0));
-        int chance = std::rand() % 5;
+
+        int chance = std::rand() % 4;
 
         if (chance == 0) {
             Movimenta(&barbaro,'D');
@@ -373,7 +428,6 @@ void Game::novoTurno() {
 
 
     AtualizaQuemEstaNaCidade();
-    VerfCombate();
 
     return;
 
@@ -387,7 +441,7 @@ void Game::compraCaravana(char tipo, char cidade) {
         logs << "[FALHA]Nao tem dinheiro suficiente " << std::endl;
         return;
     }
-
+    std::cout << " antes" << moedas;
     for ( number = 0; number < 10; ++number) {
         if(!maxCarv[number]){
             flagPodeComprar = true;
@@ -402,6 +456,9 @@ void Game::compraCaravana(char tipo, char cidade) {
                     if(city.compraCaravana(CaravanasUser, tipo,number)){
                         logs << "[Sucesso] Comprou uma Caravana na cidade:" << cidade << " do tipo: " << tipo << std::endl;
                         maxCarv[number]= true;
+                        std::cout << "Conta" << moedas << " - " << CompraCaravana << std::endl;
+                        moedas = moedas - CompraCaravana;
+                        std::cout << "Dinheiro" << moedas;
                     }
                     else{
                         logs << "[FALHA]A cidade: " << cidade << " nao tem uma Caravana do tipo: " << tipo << std::endl;
@@ -412,6 +469,8 @@ void Game::compraCaravana(char tipo, char cidade) {
             }
         }
     }
+    else
+        logs << "[FALHA]Max de caravanas em posse antigido" << std::endl;
 }
 
 void Game::MostraCarv(){
@@ -436,16 +495,23 @@ void Game::setMoedas(int moedas) {
 }
 
 void Game::MoveCaravana(int id, char direcao) {
+
+    bool ex=false;
+
     AtualizaQuemEstaNaCidade();
     for (auto &caravana: CaravanasUser) {
         if (caravana->getIdNoMapa() == id) {
             if(caravana->move()){
                 Movimenta(caravana,direcao);
-            }else
+                ex = true;
+            }else {
                 logs << "[FALHA] A caravana nao tem mais movimentos neste turno" << std::endl;
-        }else
-            logs << "[FALHA] A caravana com esse id nao foi encontrada" << std::endl;
+                ex = true;
+            }
+        }
     }
+    if(!ex)
+    logs << "[FALHA] A caravana com esse id nao foi encontrada" << std::endl;
 }
 
 void Game::CreateBarber(int l, int c){
@@ -517,7 +583,6 @@ void Game::vendeMercadoria(int idCarv) {
         return;
     }
 
-    // nenhuma caravana encontrada
     logs << "[FALHA] A caravana com esse id nao foi encontrada" << std::endl;
 }
 

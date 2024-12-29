@@ -18,7 +18,7 @@ Caravana::Caravana(int tripulantes, bool estaNaCidade, int posLinha,
 
 bool Caravana::move(){
 
-    if(movAtual + 1  <= maxMov){
+    if(movAtual + 1  < maxMov){
         ++movAtual;
         return true;
     }else
@@ -70,4 +70,20 @@ void Caravana::setEstaNaCidade(bool estaNaCidade) {
 void Caravana::resetMoves(){
     movAtual = 0;
 }
+int Caravana::batalha(){
 
+    int numS = std::rand() % tripulantes;
+
+    return numS;
+}
+
+int Caravana::AposCombate(){
+
+    int outroTrip = tripulantes - (int)(tripulantes * 0.50);
+    tripulantes = tripulantes - (int)(tripulantes * 0.20);
+    return outroTrip;
+}
+
+void Caravana::setTripulacao2(int trip) {
+    tripulantes = trip;
+}

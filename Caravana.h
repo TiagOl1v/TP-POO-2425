@@ -23,7 +23,8 @@ public:
 
 
    virtual bool move();
-
+    virtual int batalha();
+    virtual int AposCombate();
     int getTripulacao() const;
     void setTripulacao(int trip);
     int getPosLinha() const;
@@ -42,7 +43,7 @@ public:
 
     void setPosColuna(int posColuna);
 
-
+    void setTripulacao2(int trip);
 };
 
 

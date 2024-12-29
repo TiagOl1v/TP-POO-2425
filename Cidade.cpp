@@ -2,9 +2,9 @@
 
 Cidade::Cidade(char cidade, int posLinha, int posColuna) : cidade(cidade), posLinha(posLinha), posColuna(posColuna) {
 
-    std::cout << "LOG: cidade criada: " << cidade << " linha:" << posLinha << "coluna:" << posColuna << std::endl;
         Caravanas.push_back(std::make_unique<CarvComercio>(posLinha,posColuna));
-
+        Caravanas.push_back(std::make_unique<CarvMilitar>(posLinha,posColuna));
+        Caravanas.push_back(std::make_unique<CarvSecreta>(posLinha,posColuna));
 }
 
 char Cidade::getCidade() const {
@@ -27,6 +27,25 @@ bool Cidade::compraCaravana( std::vector<std::unique_ptr<Caravana>>& GameCarv, c
             return true;
 
         }
+        if (dynamic_cast<CarvSecreta*>(it->get()) && tipo == 'S') {
+
+            GameCarv.push_back(std::move(*it));
+
+            GameCarv.back()->setIdNoMapa(numberMapa);
+
+            return true;
+
+        }
+        if (dynamic_cast<CarvMilitar*>(it->get()) && tipo == 'M') {
+
+            GameCarv.push_back(std::move(*it));
+
+            GameCarv.back()->setIdNoMapa(numberMapa);
+
+            return true;
+
+        }
+
             ++it;
 
     }

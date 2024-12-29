@@ -5,6 +5,7 @@
 #include "CarvBarbaros.h"
 #include "CarvComercio.h"
 #include "CarvMilitar.h"
+#include "CarvSecreta.h"
 #include <vector>
 #include <memory>
 

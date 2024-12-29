@@ -139,7 +139,6 @@ void moveCaravana(Game& jogo, const std::string& arg) {
         if((isNumber(firstArg)) && secondArg.size()  == 1 ){
             int idCaravana = stoi(firstArg);
             jogo.MoveCaravana(idCaravana,secondArg[0]);
-            std::cout << "Caravana com ID: " << idCaravana << "na direcao: " << secondArg[0];
         } else{
             std::cout << "Argumentos invalidos: move <ID Caravana> <Direcao>" << std::endl;
         }
@@ -172,7 +171,7 @@ void CreateB(Game& jogo, const std::string& arg) {
     size_t spacePos = arg.find(' ');
 
     if (arg.empty()) {
-        std::cout << "Argumentos invalidos: compra <Numero de toneladas> <ID Caravana>" << std::endl;
+        std::cout <<  "Argumentos invalidos: barbaro <linha> <coluna>" << std::endl;
     } else {
         std::string firstArg = arg.substr(0, spacePos);
         std::string secondArg = arg.substr(spacePos + 1);
@@ -183,7 +182,7 @@ void CreateB(Game& jogo, const std::string& arg) {
             jogo.CreateBarber(L,C);
 
         } else {
-            std::cout << "Argumentos invalidos: compra <Numero de toneladas> <ID Caravana>" << std::endl;
+            std::cout << "Argumentos invalidos: barbaro <linha> <coluna>" << std::endl;
         }
     }
 }
