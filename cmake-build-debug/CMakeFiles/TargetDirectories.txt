@@ -1,3 +1,0 @@
-C:/Users/pedro/OneDrive - ISEC/Documentos/TP-POO-2425/cmake-build-debug/CMakeFiles/TP_POO2425.dir
-C:/Users/pedro/OneDrive - ISEC/Documentos/TP-POO-2425/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/pedro/OneDrive - ISEC/Documentos/TP-POO-2425/cmake-build-debug/CMakeFiles/rebuild_cache.dir
