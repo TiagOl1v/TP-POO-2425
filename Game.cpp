@@ -441,7 +441,7 @@ void Game::compraCaravana(char tipo, char cidade) {
         logs << "[FALHA]Nao tem dinheiro suficiente " << std::endl;
         return;
     }
-    std::cout << " antes" << moedas;
+    std::cout << "antes: " << moedas << std::endl;
     for ( number = 0; number < 10; ++number) {
         if(!maxCarv[number]){
             flagPodeComprar = true;
@@ -456,9 +456,9 @@ void Game::compraCaravana(char tipo, char cidade) {
                     if(city.compraCaravana(CaravanasUser, tipo,number)){
                         logs << "[Sucesso] Comprou uma Caravana na cidade:" << cidade << " do tipo: " << tipo << std::endl;
                         maxCarv[number]= true;
-                        std::cout << "Conta" << moedas << " - " << CompraCaravana << std::endl;
+                        std::cout << "Conta: " << moedas << " - " << CompraCaravana << std::endl;
                         moedas = moedas - CompraCaravana;
-                        std::cout << "Dinheiro" << moedas;
+                        std::cout << "Dinheiro: " << moedas << std::endl;
                     }
                     else{
                         logs << "[FALHA]A cidade: " << cidade << " nao tem uma Caravana do tipo: " << tipo << std::endl;
@@ -476,7 +476,7 @@ void Game::compraCaravana(char tipo, char cidade) {
 void Game::MostraCarv(){
     logs << "Possui as seguintes Caravanas: " << std::endl;
     for( const auto & caravana : CaravanasUser ){
-        logs << "Caravana -> " << caravana->getIdNoMapa() << std::endl;
+        logs << "Caravana IDgit -> " << caravana->getIdNoMapa() << std::endl;
     }
 }
 

@@ -21,7 +21,7 @@ int main() {
             interface.start();
 
         }catch (const std::runtime_error& e) {
-         std::cerr << "Exceção: " << e.what() << std::endl;
+         std::cerr << "Excecao: " << e.what() << std::endl;
     }
 
     return 0;

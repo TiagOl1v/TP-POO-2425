@@ -17,7 +17,7 @@ class ListaComandos {
 public:
 
     ListaComandos();
-    bool ExecutaComando(Game & J, std::string comando);
+    bool ExecutaComando(Game & J, const std::string& comando);
 
 
 };

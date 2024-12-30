@@ -39,7 +39,8 @@ void CompraCaravana(Game& jogo, const std::string& arg) {
             std::cout << "Argumentos invalidos: comprac <Nome cidade> <Tipo> " << std::endl;
         } else {
             jogo.compraCaravana(firstArg[0],secondArg[0]);
-            std::cout << "Primeiro char: " << firstArg[0] << "\nSegundo char: " << secondArg[0] << std::endl;
+            std::cout << "Primeiro char: " << firstArg[0] << "\nSegundo char: " << secondArg[0]
+            << std::endl;
 
         }
     }
@@ -209,7 +210,7 @@ ListaComandos::ListaComandos(){
 
 }
 
-bool ListaComandos::ExecutaComando(Game &J, std::string comando) {
+bool ListaComandos::ExecutaComando(Game &J, const std::string& comando) {
 
     J.setHouveAlt(false);
     J.resetLogs();
