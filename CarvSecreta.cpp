@@ -6,3 +6,8 @@ CarvSecreta::CarvSecreta(int l, int c): Caravana(40,true,l,c,100,0), LitrosAtual
 }
 
 
+int CarvSecreta::batalha() {
+    int numS = std::rand() % this->getTripulacao();
+    numS = numS * 2;
+    return numS;
+}
