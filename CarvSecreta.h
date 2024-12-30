@@ -11,7 +11,10 @@ class CarvSecreta : public Caravana{
 
 public:
     CarvSecreta(int l, int c);
-
+    int getMaxCarga() const;
+    int getcargaAtual() const;
+    void setcargaAtual(int carga);
+    void zeracargaAtual();
     int batalha() override;
 
 };

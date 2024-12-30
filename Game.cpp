@@ -307,10 +307,10 @@ Game::Game(std::string  & ficheiro):instantes(0){
     // Ler linhas e colunas
     std::string linha;
     std::getline(file, linha);
-    linhas = std::stoi(linha.substr(linha.find(" ") + 1));
+    linhas = std::stoi(linha.substr(linha.find(' ') + 1));
 
     std::getline(file, linha);
-    colunas = std::stoi(linha.substr(linha.find(" ") + 1));
+    colunas = std::stoi(linha.substr(linha.find(' ') + 1));
 
     // Inicializar o mapa
     mapaReal = new char*[linhas];
@@ -362,9 +362,9 @@ void Game::MostraDcaravana(int id) {
         if (caravana->getIdNoMapa() == id) {
 
             if (auto comercio = dynamic_cast<CarvComercio *>(caravana.get())) {
-                logs << "Caravana surpresa:\n" << "id: " << comercio->isEstaNaCidade() << "\nTripulantes: " << comercio->getTripulacao() << "\nPos: " << comercio->getPosLinha() << " , " << comercio->getPosColuna();
+                logs << "Caravana comercio:\n" << "id: " << comercio->isEstaNaCidade() << "\nTripulantes: " << comercio->getTripulacao() << "\nPos: " << comercio->getPosLinha() << " , " << comercio->getPosColuna();
             } else if (auto militar = dynamic_cast<CarvMilitar *>(caravana.get())) {
-                logs << "Caravana surpresa:\n" << "id: " << militar->isEstaNaCidade() << "\nTripulantes: " << militar->getTripulacao() << "\nPos: " << militar->getPosLinha() << " , " << militar->getPosColuna();
+                logs << "Caravana militar:\n" << "id: " << militar->isEstaNaCidade() << "\nTripulantes: " << militar->getTripulacao() << "\nPos: " << militar->getPosLinha() << " , " << militar->getPosColuna();
             } else if (auto surpresa = dynamic_cast<CarvSecreta *>(caravana.get())) {
                 logs << "Caravana surpresa:\n" << "id: " << surpresa->isEstaNaCidade() << "\nTripulantes: " << surpresa->getTripulacao() << "\nPos: " << surpresa->getPosLinha() << " , " << surpresa->getPosColuna();
 
@@ -573,6 +573,12 @@ void Game::compraMercadoria(int idCarv, int toneladas) {
                     return;
                 }
                 militar->setcargaAtual(toneladas);
+            } else if (auto secreta = dynamic_cast<CarvSecreta *>(caravana.get())) {
+                if (toneladas > secreta->getMaxCarga()) {
+                    logs << "[FALHA] A carga maxima da caravana ja foi excedida! " << std::endl;
+                    return;
+                }
+                secreta->setcargaAtual(toneladas);
             }
 
             moedas -= CompraMercadoria * toneladas;
@@ -599,6 +605,9 @@ void Game::vendeMercadoria(int idCarv) {
             } else if (auto militar = dynamic_cast<CarvMilitar *>(caravana.get())) {
                 moedas += VendaMercadoria * militar->getcargaAtual();
                 militar->zeracargaAtual();
+            } else if (auto secreta = dynamic_cast<CarvSecreta *>(caravana.get())) {
+                moedas += VendaMercadoria * secreta->getcargaAtual();
+                secreta->zeracargaAtual();
             }
         }
         logs << "[SUCESSO] Mercadorias vendidas com sucesso!" << std::endl;
@@ -623,6 +632,12 @@ void Game::compraTripulantes(int idCarv, int tripulantes) {
                 }
                 caravana->setTripulacao(tripulantes);
             } else if (dynamic_cast<CarvMilitar *>(caravana.get())) {
+                if (tripulantes + caravana->getTripulacao() > 40) {
+                    logs << "[FALHA] A carga maxima da caravana ja foi excedida! " << std::endl;
+                    return;
+                }
+                caravana->setTripulacao(tripulantes);
+            } else if (dynamic_cast<CarvSecreta *>(caravana.get())) {
                 if (tripulantes + caravana->getTripulacao() > 40) {
                     logs << "[FALHA] A carga maxima da caravana ja foi excedida! " << std::endl;
                     return;

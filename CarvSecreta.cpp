@@ -5,6 +5,22 @@ CarvSecreta::CarvSecreta(int l, int c): Caravana(40,true,l,c,100,0), LitrosAtual
 
 }
 
+int CarvSecreta::getMaxCarga() const {
+    return MaxCarga;
+}
+
+int CarvSecreta::getcargaAtual() const {
+    return cargaAtual;
+}
+
+void CarvSecreta::setcargaAtual(int carga) {
+    cargaAtual += carga;
+}
+
+void CarvSecreta::zeracargaAtual() {
+    cargaAtual = 0;
+}
+
 
 int CarvSecreta::batalha() {
     int numS = std::rand() % this->getTripulacao();

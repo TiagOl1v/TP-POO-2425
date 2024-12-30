@@ -68,7 +68,8 @@ void MostraDetalhesCaravana(Game& jogo, const std::string& arg) {
 
     if((isNumber(arg))){
         int num = stoi(arg);
-        std::cout << "id caravana " << num;
+        std::cout << "id caravana: " << num << std::endl;
+        jogo.MostraDcaravana(num);
     }
     else
         std::cout << "Argumentos incorretos";
