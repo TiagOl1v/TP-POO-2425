@@ -12,6 +12,8 @@ class CarvSecreta : public Caravana{
 public:
     CarvSecreta(int l, int c);
 
+    int batalha() override;
+
 };
 
 

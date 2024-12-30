@@ -62,6 +62,7 @@ public:
     void MoveCaravana(int id, char direcao);
     const std::ostringstream &getLogs() const;
 
+    void MostraDcaravana(int id);
 
     void setHouveAlt(bool houveAlt);
     bool isHouveAlt() const;

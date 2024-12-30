@@ -353,8 +353,27 @@ Game::Game(std::string  & ficheiro):instantes(0){
         maxCarv[i] = false;
     }
 
+
 }
 
+void Game::MostraDcaravana(int id) {
+
+    for (auto &caravana: CaravanasUser) {
+        if (caravana->getIdNoMapa() == id) {
+
+            if (auto comercio = dynamic_cast<CarvComercio *>(caravana.get())) {
+                logs << "Caravana surpresa:\n" << "id: " << comercio->isEstaNaCidade() << "\nTripulantes: " << comercio->getTripulacao() << "\nPos: " << comercio->getPosLinha() << " , " << comercio->getPosColuna();
+            } else if (auto militar = dynamic_cast<CarvMilitar *>(caravana.get())) {
+                logs << "Caravana surpresa:\n" << "id: " << militar->isEstaNaCidade() << "\nTripulantes: " << militar->getTripulacao() << "\nPos: " << militar->getPosLinha() << " , " << militar->getPosColuna();
+            } else if (auto surpresa = dynamic_cast<CarvSecreta *>(caravana.get())) {
+                logs << "Caravana surpresa:\n" << "id: " << surpresa->isEstaNaCidade() << "\nTripulantes: " << surpresa->getTripulacao() << "\nPos: " << surpresa->getPosLinha() << " , " << surpresa->getPosColuna();
+
+
+            }
+
+        }
+    }
+}
 char* Game::operator[](int row) {
     return mapaReal[row];
 }
